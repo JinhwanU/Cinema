@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="movie.dao.MovieDAO">
+
+	<resultMap type="movieVO" id="movieMap">
+		<result column="open_date" property="openDate"/>
+	</resultMap>
+
+	<!-- 전체 영화리스트 조회 -->
+	<select id="selectAll" resultMap="movieMap">
+		select no, title, runtime, to_char(open_date, 'yyyy-mm-dd') open_date
+		  from t_movie
+		 where status = 'T'
+		 order by no desc
+	</select>
+	
+	<!-- 영화 번호로 조회 -->
+	<select id="selectByNo" resultMap="movieMap" parameterType="movieVO">
+		select no, title, runtime, to_char(open_date, 'yyyy-mm-dd') open_date
+		  from t_movie
+		 where status = 1
+		   and no = #{no}
+	</select>
+
+	<!-- 게시글조회(제목, 작성자) -->
+	<!-- <select id="selectWhere" resultMap="boardMap" parameterType="boardVO">
+		<include refid="selectBoard" />
+		<where>
+			<if test="title != null">
+				title=#{title} 
+			</if>
+			<if test="writer != null">
+				and writer=#{writer}
+			</if>
+		</where>
+	</select> -->
+
+	<insert id="insert" parameterType="movieVO">
+		insert into t_board(title, runtime, to_date(open_date,'yyyy-mm-dd'))
+		values(#{title}, #{runtime}, #{openDate})
+	</insert>
+
+</mapper>

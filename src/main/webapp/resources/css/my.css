@@ -1,0 +1,95 @@
+@charset "UTF-8";
+
+.dropdown:hover .dropdown-menu {
+	display: block;
+	margin-top: 0;
+}
+
+main {
+  max-width: 900px; /* Adjust the width as needed */
+  margin: 0 auto; /* Center the content horizontally */
+}
+
+.bi {
+	vertical-align: -.125em;
+	fill: currentColor;
+}
+
+.seat {
+  background-color: #444451;
+  height: 52px;
+  width: 65px;
+  margin: 3px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.seat.selected {
+  background-color: #6feaf6;
+}
+
+.seat.occupied {
+  background-color: #c0c0c0;
+}
+
+.seat:nth-of-type(2) {
+  margin-right: 30px;
+}
+
+.seat:nth-last-of-type(2) {
+  margin-left: 30px;
+}
+
+.seat:not(.occupied):hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.showcase .seat:not(.occupied):hover {
+  cursor: default;
+  transform: scale(1);
+}
+
+.showcase {
+  padding: 5px 10px;
+  border-radius: 5px;
+  list-style-type: none;
+  display: flex;
+  justify-content: end;
+}
+
+.showcase li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 10px;
+}
+
+.showcase li small {
+  margin-left: 2px;
+}
+
+.screen {
+  background-color: #808080;
+  height: 70px;
+  width: 100%;
+  margin: 15px 0;
+  transform: rotateX(-45deg);
+}
+
+::-webkit-scrollbar {
+	width: 5px; 
+}
+::-webkit-scrollbar-thumb {
+ background-color: #808080;
+}
+ 
+::-webkit-scrollbar-track {
+  background-color: none;
+}
+
+.list-group-item.disabled {
+    pointer-events: none; /* 클릭 이벤트 비활성화 */
+    opacity: 0.6; /* 선택 불가능한 상태를 나타내기 위한 투명도 조정 */
+    cursor: default; /* 마우스 커서를 기본값으로 설정 */
+}

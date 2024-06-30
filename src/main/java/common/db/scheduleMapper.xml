@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="schedule.dao.ScheduleDAO">
+
+	<resultMap type="scheduleVO" id="scheduleMap">
+		<result column="no" property="no" />
+		<result column="movie_no" property="movieNo" />
+		<result column="theater_name" property="theaterName" />
+		<result column="screen_time" property="screenTime" />
+		<result column="seat_cnt" property="seatCnt" />
+		<association property="movie" javaType="movieVO">
+            <id column="movie_no" property="no" />
+            <result column="title" property="title"/>
+            <result column="runtime" property="runtime"/>
+        </association>
+        <collection property="seatList" ofType="seatVO">
+        	<id column="seat_no" property="no" />
+            <result column="seat_name" property="seatName" />
+            <result column="available" property="available" />
+        </collection>
+	</resultMap>
+
+	<select id="selectWhere" resultMap="scheduleMap" parameterType="scheduleVO">
+		select s.no 			as no
+		      ,s.movie_no 		as movie_no
+		      ,s.theater_name 	as theater_name
+			  ,s.screen_time	as screen_time
+			  ,m.title 			as title
+			  ,m.runtime		as runtime
+			  ,(select sum(t.available)
+				  from t_seat t
+				 where s.no = t.schedule_no
+			  	) as seat_cnt
+		  from t_schedule s
+		       join t_movie m
+		        	on m.no = s.movie_no
+		<where>
+			<if test="screenTime != null">
+				s.screen_time between to_date(#{screenTime}, 'YYYY-MM-DD') and TO_DATE(#{screenTime}, 'YYYY-MM-DD') + INTERVAL '1' DAY - INTERVAL '1' SECOND
+			</if>
+			<if test="movieNo != 0">
+				and s.movie_no=#{movieNo}
+			</if>
+		</where>
+		order by screen_time
+	</select>
+	
+	<select id="selectByNoAssociation" resultMap="scheduleMap" parameterType="int">
+		select s.no              as no,
+	           s.movie_no        as movie_no,
+	           s.theater_name    as theater_name,
+	           s.screen_time     as screen_time,
+	           m.title           as title,
+	           m.runtime         as runtime,
+	           t.no              as seat_no,
+	           t.seat_name       as seat_name,
+	           t.available       as available
+	      from t_schedule s
+	           join t_movie m on m.no = s.movie_no
+	           left join t_seat t on s.no = t.schedule_no
+	     where s.no = #{no}
+	</select>
+	
+	<select id="selectByNo" resultMap="scheduleMap" parameterType="int">
+		select s.no              as no,
+	           s.movie_no        as movie_no,
+	           s.theater_name    as theater_name,
+	           s.screen_time     as screen_time,
+	           m.title           as title,
+	           m.runtime         as runtime
+	      from t_schedule s
+	           join t_movie m on m.no = s.movie_no
+	     where s.no = #{no}
+	</select>
+	
+</mapper>

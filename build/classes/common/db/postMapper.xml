@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="post.dao.PostDAO">
+
+	<resultMap type="postVO" id="postMap">
+		<result column="movie_no" property="movieNo" />
+        <result property="writer" column="writer"/>
+        <result property="content" column="content"/>
+        <result property="grade" column="grade"/>
+		<result column="view_cnt" property="viewCnt" />
+		<result column="reg_date" property="regDate" />
+		<result column="img_url" property="imgUrl" />
+        <result property="staus" column="status"/>
+        <association property="movie" javaType="movieVO">
+            <id property="no" column="movie_no"/>
+            <result property="title" column="title"/>
+        </association>
+	</resultMap>
+
+	<!-- 전체 포스트 조회 -->
+	<select id="selectAll" resultMap="postMap">
+		select p.no 		as no
+		      ,p.movie_no 	as movie_no
+		      ,p.writer 	as writer
+		      ,p.content 	as content
+		      ,p.grade 		as grade
+		      ,p.view_cnt 	as view_cnt
+		      ,p.img_url 	as img_url
+			  ,to_char(p.reg_date, 'yyyy-mm-dd HH24:MI:SS') reg_date
+			  ,m.title 		as title
+		from t_post p
+		     join t_movie m
+		     	  on m.no = p.movie_no 
+		where p.status = 'T'
+		order by reg_date desc
+	</select>
+	
+</mapper>

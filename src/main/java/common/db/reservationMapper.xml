@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reservation.dao.ReservationDAO">
+
+	<!-- <resultMap type="reservationVO" id="reservationMap">
+		<result column="no" property="no" />
+		<result column="member_id" property="memberId" />
+        <result property="movie_no" column="movieNo"/>
+        <result property="seat_name" column="seatName"/>
+        <result property="schedule_no" column="scheduleNo"/>
+		<result column="headcount" property="headcount" />
+		<result column="payment" property="payment" />
+		<result column="reg_date" property="regDate" />
+	</resultMap> -->
+
+	<insert id="insert" parameterType="reservationVO">
+		insert into t_reservation(no,member_id,movie_no,seat_name,schedule_no,headcount,payment)
+		values(T_RESERVATION_SEQ.nextval,#{memberId}, #{movieNo}, #{seatName},#{scheduleNo},#{headcount},#{payment})
+	</insert>
+	
+</mapper>
