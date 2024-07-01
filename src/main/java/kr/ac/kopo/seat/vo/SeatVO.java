@@ -6,6 +6,15 @@ public class SeatVO {
 	private String theaterName;
 	private String seatName;
 	private int available;
+	private int scheduleNo;
+
+	public SeatVO() {
+	}
+
+	public SeatVO(String seatName, int scheduleNo) {
+		this.seatName = seatName;
+		this.scheduleNo = scheduleNo;
+	}
 
 	public final int getNo() {
 		return no;
@@ -39,10 +48,18 @@ public class SeatVO {
 		this.available = available;
 	}
 
+	public final int getScheduleNo() {
+		return scheduleNo;
+	}
+
+	public final void setScheduleNo(int scheduleNo) {
+		this.scheduleNo = scheduleNo;
+	}
+
 	@Override
 	public String toString() {
 		return "SeatVO [no=" + no + ", theaterName=" + theaterName + ", seatName=" + seatName + ", available="
-				+ available + "]";
+				+ available + ", scheduleNo=" + scheduleNo + "]";
 	}
 
 }

@@ -12,13 +12,14 @@ public class PaymentController implements Controller {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int no = Integer.parseInt(request.getParameter("no"));
-		String[] seatList = request.getParameter("seat").split("\\s+");
+		String[] seatList = request.getParameter("seat").trim().split("\\s+");
 
 		ScheduleDAO scheduleDAO = new ScheduleDAO();
 		ScheduleVO schedule = scheduleDAO.selectByNo(no);
-		System.out.println(schedule);
 
 		int count = seatList.length;
+		for(String s : seatList)
+			System.out.println(s);
 
 		request.setAttribute("schedule", schedule);
 		request.setAttribute("seatList", seatList);

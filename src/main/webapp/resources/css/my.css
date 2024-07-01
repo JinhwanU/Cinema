@@ -30,6 +30,7 @@ main {
 
 .seat.occupied {
   background-color: #c0c0c0;
+  pointer-events: none;
 }
 
 .seat:nth-of-type(2) {

@@ -1,5 +1,8 @@
 package kr.ac.kopo.reservation.vo;
 
+import kr.ac.kopo.movie.vo.MovieVO;
+import kr.ac.kopo.schedule.vo.ScheduleVO;
+
 public class ReservationVO {
 	private int no;
 	private String memberId;
@@ -9,6 +12,8 @@ public class ReservationVO {
 	private int headcount;
 	private int payment;
 	private String regDate;
+	private MovieVO movie;
+	private ScheduleVO schedule;
 
 	public final int getNo() {
 		return no;
@@ -74,11 +79,27 @@ public class ReservationVO {
 		this.regDate = regDate;
 	}
 
+	public final MovieVO getMovie() {
+		return movie;
+	}
+
+	public final void setMovie(MovieVO movie) {
+		this.movie = movie;
+	}
+
+	public final ScheduleVO getSchedule() {
+		return schedule;
+	}
+
+	public final void setSchedule(ScheduleVO schedule) {
+		this.schedule = schedule;
+	}
+
 	@Override
 	public String toString() {
 		return "ReservationVO [no=" + no + ", memberId=" + memberId + ", movieNo=" + movieNo + ", seatName=" + seatName
 				+ ", scheduleNo=" + scheduleNo + ", headcount=" + headcount + ", payment=" + payment + ", regDate="
-				+ regDate + "]";
+				+ regDate + ", movie=" + movie + ", schedule=" + schedule + "]";
 	}
 
 }

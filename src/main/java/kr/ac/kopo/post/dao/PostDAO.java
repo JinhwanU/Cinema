@@ -15,11 +15,13 @@ public class PostDAO {
 	}
 
 	public void insertPost() {
-
 		PostVO post = new PostVO();
-		
-		session.insert("post.dao.PostDAO.insert", post);
-		session.commit();
+		try {
+			session.insert("post.dao.PostDAO.insert", post);
+			session.commit();
+		} catch (Exception e) {
+			session.rollback();
+		}
 	}
 
 	public List<PostVO> selectAllPosts() {

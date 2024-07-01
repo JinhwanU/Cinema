@@ -1,11 +1,17 @@
 package kr.ac.kopo.reservation.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.ac.kopo.framework.Controller;
 import kr.ac.kopo.reservation.dao.ReservationDAO;
 import kr.ac.kopo.reservation.vo.ReservationVO;
+import kr.ac.kopo.seat.dao.SeatDAO;
+import kr.ac.kopo.seat.vo.SeatVO;
+import oracle.net.ns.SessionAtts;
 
 public class CompleteController implements Controller {
 
@@ -26,9 +32,23 @@ public class CompleteController implements Controller {
 		reservation.setHeadcount(headcount);
 		reservation.setPayment(payment);
 
-		ReservationDAO reservationDao = new ReservationDAO();
-		reservationDao.insertReservation(reservation);
+		String[] seatNameArray = seatName.split(" ");
 
-		return "/home.jsp";
+		List<SeatVO> seatList = new ArrayList<>();
+		for (String name : seatNameArray) {
+		    seatList.add(new SeatVO(name, scheduleNo));
+		}
+
+		SeatDAO seatDao = new SeatDAO();
+		ReservationDAO reservationDao = new ReservationDAO();
+
+		try {
+			seatDao.updateAvailableZero(seatList);
+			reservationDao.insertReservation(reservation);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "/reservation/complete.jsp";
 	}
 }

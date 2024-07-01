@@ -24,49 +24,66 @@ main {
 </style>
 <script>
 	$(document).ready(function() {
-		let selectedCount = $('.seat.selected').length;
-		let count = $('.btn-group .btn-info').text()
-		let price = count * 15000;
+		let count = parseInt($('.btn-group .btn-info').text()); // 초기 인원 수
+		let price = count * 15000; // 초기 가격 설정
+		let selectedCount = 0; // 초기 선택된 좌석 수
+		
+		updatePriceAndButtonState();
+		
 		$('.btn-group button').click(function() {
-
 			$(this).removeClass('btn-light').addClass('btn-info');
 			$(this).siblings().removeClass('btn-info').addClass('btn-light');
 
 			$('.seat.selected').removeClass('selected');
 			$('#seatName').text('');
-
-			count = $('.btn-group .btn-info').text()
+			
+			count = parseInt($('.btn-group .btn-info').text());
 			price = count * 15000;
-			$('#price').text(price + '원')
-
+			updatePriceAndButtonState(); // 인원 수 변경 시 가격 업데이트 및 버튼 상태 업데이트
 		});
 
 		$('.seat').click(function() {
-			let count = parseInt($('.btn-group .btn-info').text());
-			let selectedCount = $('.seat.selected').length;
 			let seatName = $(this).text().trim();
 
 			if ($(this).hasClass('selected')) {
 				$(this).removeClass('selected');
-
-				let currentSeatNames = $('#seatName').text();
-				let updatedSeatNames = currentSeatNames.replace(seatName, '');
-				$('#seatName').text(updatedSeatNames.trim());
-
+				updateSelectedSeatsList(seatName, false); // 선택 해제 시 좌석 목록 업데이트
 			} else {
 				if (selectedCount < count) {
 					$(this).addClass('selected');
-
-					let currentSeatNames = $('#seatName').text().trim();
-					if (currentSeatNames === '') {
-						$('#seatName').text(seatName);
-					} else {
-						$('#seatName').text(currentSeatNames + ' ' + seatName);
-					}
-					$('input[name="seat"]').val($('#seatName').text().trim());
+				 	updateSelectedSeatsList(seatName, true); // 선택 시 좌석 목록 업데이트
 				}
 			}
+			updatePriceAndButtonState();
 		});
+		
+		
+		 function updateSelectedSeatsList(seatName, isSelected) {
+	            let currentSeatNames = $('#seatName').text().trim();
+	            let updatedSeatNames = currentSeatNames.split(' ');
+
+	            if (isSelected) {
+	                updatedSeatNames.push(seatName);
+	            } else {
+	                updatedSeatNames = updatedSeatNames.filter(name => name !== seatName);
+	            }
+
+	            $('#seatName').text(updatedSeatNames.join(' '));
+	            $('input[name="seat"]').val(updatedSeatNames.join(' '));
+	        }
+
+	        function updatePriceAndButtonState() {
+	            selectedCount = $('.seat.selected').length; // 선택된 좌석 수 업데이트
+
+	            $('#price').text(price + '원'); // 가격 업데이트
+
+	            // 선택된 좌석 수와 인원 수가 일치할 때 결제 버튼 활성화
+	            if (selectedCount === count) {
+	                $("#paymentBtn").prop("disabled", false);
+	            } else {
+	                $("#paymentBtn").prop("disabled", true);
+	            }
+	        }
 	});
 </script>
 
@@ -144,8 +161,8 @@ main {
 					</div>
 					<div class="col-md-2 d-none d-lg-block">
 						<form action="payment.do" method="get">
-							<input type="submit" class="btn btn-danger btn-lg px-4 py-4"
-								value="결제하기"> <input type="hidden" name="no"
+							<input id="paymentBtn" type="submit" class="btn btn-danger btn-lg px-4 py-4"
+								value="결제하기" disabled=true> <input type="hidden" name="no"
 								value="${schedule.no}"> <input type="hidden" name="seat">
 						</form>
 					</div>

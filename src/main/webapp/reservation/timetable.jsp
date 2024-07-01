@@ -45,13 +45,19 @@ $(document).ready(function() {
 
     function appendSchedule(data) {
         $("#scheduleList").empty();
+        const now = new Date();
+        now.setMinutes(now.getMinutes() + 30);
+        
         data.forEach(schedule => {
-            var time = new Date(schedule.screenTime);
-            if(schedule.seatCnt > 0){
-	            var html = '<a href="#" name="schedule" class="list-group-item list-group-item-action py-3 px-3 lh-tight" data-bs-toggle="list" data-no="'+schedule.no+'">';
-            } else{
-            	var html = '<a href="#" name="schedule" class="list-group-item list-group-item-action py-3 px-3 lh-tight disabled" data-bs-toggle="list">';
+            var time = new Date(schedule.screenTime); // 상영 시간
+            var isPast = time < now; // 상영 시간이 현재 시간보다 이전인지 확인
+            
+            var html = '<a href="#" name="schedule" class="list-group-item list-group-item-action py-3 px-3 lh-tight';
+            if (isPast || schedule.seatCnt <= 0) {
+                html += ' disabled';
             }
+            html += '" data-bs-toggle="list" data-no="' + schedule.no + '">';
+            
             html += '<div class="row">';
             html += '<strong class="col-md-2 mb-1">' + formatTime(time) + '<br>';
             time.setMinutes(time.getMinutes() + schedule.movie.runtime);
@@ -175,7 +181,7 @@ $(document).ready(function() {
 				</div>
 			</div>
 			<div class="row">
-				<button id="selectSeatBtn" class="btn btn-danger" onclick="location.href='select.do'" disabled=true>좌석선택</button>
+				<button id="selectSeatBtn" class="btn btn-danger" disabled=true>좌석선택</button>
 			</div>
 		</div>
 	</main>

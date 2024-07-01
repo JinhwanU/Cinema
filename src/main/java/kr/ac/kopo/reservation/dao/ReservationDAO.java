@@ -1,5 +1,7 @@
 package kr.ac.kopo.reservation.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import kr.ac.kopo.reservation.vo.ReservationVO;
@@ -13,7 +15,17 @@ public class ReservationDAO {
 	}
 
 	public void insertReservation(ReservationVO reservation) {
-		session.insert("reservation.dao.ReservationDAO.insert", reservation);
-		session.commit();
+		try {
+			session.insert("reservation.dao.ReservationDAO.insert", reservation);
+			session.commit();
+		} catch (Exception e) {
+			session.rollback();
+			throw e;
+		}
+	}
+	
+	public List<ReservationVO> selectListByMemberId(String memberId){
+		List<ReservationVO> reservList= session.selectList("reservation.dao.ReservationDAO.selectListByMemberId", memberId);
+		return reservList;
 	}
 }

@@ -29,5 +29,6 @@
 		<mapper resource="common/db/postMapper.xml" />
 		<mapper resource="common/db/scheduleMapper.xml" />
 		<mapper resource="common/db/reservationMapper.xml" />
+		<mapper resource="common/db/seatMapper.xml" />
 	</mappers>
 </configuration>

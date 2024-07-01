@@ -37,7 +37,7 @@
 					role="button" data-bs-toggle="dropdown" aria-expanded="false">
 						마이페이지 </a>
 					<ul class="dropdown-menu">
-						<li><a class="dropdown-item fw-bolder" href="#">예매내역 확인</a></li>
+						<li><a class="dropdown-item fw-bolder" href="${ pageContext.request.contextPath }/mypage/log.do">예매내역 확인</a></li>
 						<li><a class="dropdown-item fw-bolder" href="#">회원정보 관리</a></li>
 					</ul></li>
 			</ul>
