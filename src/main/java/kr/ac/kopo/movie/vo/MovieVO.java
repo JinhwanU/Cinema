@@ -6,51 +6,79 @@ public class MovieVO {
 	private int runtime;
 	private String openDate;
 	private char status;
+	private String kmdbUrl;
+	private String posterUrl;
+	private String rating;
 
-	public int getNo() {
+	public final int getNo() {
 		return no;
 	}
 
-	public void setNo(int no) {
+	public final void setNo(int no) {
 		this.no = no;
 	}
 
-	public String getTitle() {
+	public final String getTitle() {
 		return title;
 	}
 
-	public void setTitle(String title) {
+	public final void setTitle(String title) {
 		this.title = title;
 	}
 
-	public int getRuntime() {
+	public final int getRuntime() {
 		return runtime;
 	}
 
-	public void setRuntime(int runtime) {
+	public final void setRuntime(int runtime) {
 		this.runtime = runtime;
 	}
 
-	public String getOpenDate() {
+	public final String getOpenDate() {
 		return openDate;
 	}
 
-	public void setOpenDate(String openDate) {
+	public final void setOpenDate(String openDate) {
 		this.openDate = openDate;
 	}
 
-	public char getStatus() {
+	public final char getStatus() {
 		return status;
 	}
 
-	public void setStatus(char status) {
+	public final void setStatus(char status) {
 		this.status = status;
+	}
+
+	public final String getKmdbUrl() {
+		return kmdbUrl;
+	}
+
+	public final void setKmdbUrl(String kmdbUrl) {
+		this.kmdbUrl = kmdbUrl;
+	}
+
+	public final String getPosterUrl() {
+		return posterUrl;
+	}
+
+	public final void setPosterUrl(String posterUrl) {
+		this.posterUrl = posterUrl;
+	}
+
+	public final String getRating() {
+		return rating;
+	}
+
+	public final void setRating(String rating) {
+		this.rating = rating;
 	}
 
 	@Override
 	public String toString() {
 		return "MovieVO [no=" + no + ", title=" + title + ", runtime=" + runtime + ", openDate=" + openDate
-				+ ", status=" + status + "]";
+				+ ", status=" + status + ", kmdbUrl=" + kmdbUrl + ", posterUrl=" + posterUrl + ", rating=" + rating
+				+ "]";
 	}
 
 }

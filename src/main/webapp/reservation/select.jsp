@@ -98,18 +98,16 @@ main {
 			<li><strong>인원수</strong>
 				<div class="btn-toolbar" role="toolbar"
 					aria-label="Toolbar with button groups">
-					<div class="btn-group mx-3 border border-3" role="group"
+					<div class="btn-group mx-3 border border-3 me-5" role="group"
 						aria-label="First group">
 						<button type="button" class="btn btn-info btn-lg">1</button>
 						<button type="button" class="btn btn-light btn-lg">2</button>
 						<button type="button" class="btn btn-light btn-lg">3</button>
 						<button type="button" class="btn btn-light btn-lg">4</button>
 					</div></li>
-			<li class="me-5"><button type="button"
-					class="btn btn-light btn-lg">선택 초기화</button></li>
+			<li class="mx-5"></li>
 			<li>
-				<div class="seat"></div> <small>선택<br>가능
-			</small>
+				<div class="seat"></div> <small>선택<br>가능</small>
 			</li>
 			<li>
 				<div class="seat" style="background-color: #6feaf6;"></div> <small>선택</small>
@@ -145,9 +143,9 @@ main {
 					class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative align-items-center justify-content-center">
 					<div class="col-md-4">
 						<img class="bd-placeholder-img" width="80" height="120"
-							src="https://ojsfile.ohmynews.com/STD_IMG_FILE/2024/0613/IE003311810_STD.jpg" />
+							src="${schedule.movie.posterUrl}" />
 						<strong class="d-inline-block mb-2 text-primary-emphasis">${schedule.movie.title}</strong>
-						<small>(${schedule.movie.runtime}분)</small>
+						<small>(${schedule.movie.runtime}분)</small><br><small>${schedule.movie.rating}</small>
 					</div>
 					<div class="col-md-2">
 						<h3 class="mb-0">${schedule.theaterName}관</h3>

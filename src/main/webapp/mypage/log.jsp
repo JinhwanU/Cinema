@@ -20,12 +20,12 @@
 	</header>
 	<main>
 		<h1 class="fw-bolder mt-3">예매내역</h1>
-		<table class="table table-hover align-middle table-sm mt-3" style="width: 100%;">
+		<table class="table table-hover table-striped align-middle table-sm mt-3" style="width: 100%;">
 			<tr class="table-primary">
 				<th class="text-center" width="5%">예매번호</th>
 				<th class="text-center" width="20%">영화제목</th>
 				<th class="text-center" width="7%">상영관</th>
-				<th class="text-center" width="18%">상영시간</th>
+				<th class="text-center" width="18%">상영일시</th>
 				<th class="text-center" width="5%">인원</th>
 				<th class="text-center" width="17%">좌석</th>
 				<th class="text-center" width="10%">결제금액</th>
@@ -35,7 +35,7 @@
 					<tr>
 						<td align="center">${ reserv.no }</td>
 						<td align="center">${ reserv.movie.title }</td>
-						<td align="center">${ reserv.schedule.theaterName }</td>
+						<td align="center">${ reserv.schedule.theaterName }관</td>
 						<td align="center">${ reserv.schedule.screenTime }</td>
 						<td align="center">${ reserv.headcount }</td>
 						<td align="center">${ reserv.seatName }</td>

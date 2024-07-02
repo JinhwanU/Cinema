@@ -133,7 +133,7 @@ $(document).ready(function() {
 									class="list-group-item list-group-item-action py-3 lh-tight"
 									data-bs-toggle="list" data-movie-no="${movie.no}">
 									<div class="row">
-										<strong class="col-md-2 mb-1 pe-1">ALL</strong> <strong
+										<strong class="col-md-2 mb-1 pe-1">${movie.rating}</strong> <strong
 											class="col-md-10">${ movie.title }<br></strong>
 									</div>
 								</a>

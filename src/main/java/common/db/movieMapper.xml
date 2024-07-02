@@ -6,11 +6,14 @@
 
 	<resultMap type="movieVO" id="movieMap">
 		<result column="open_date" property="openDate"/>
+		<result column="poster_url" property="posterUrl"/>
+		<result column="kmdb_url" property="kmdbUrl"/>
+		
 	</resultMap>
 
 	<!-- 전체 영화리스트 조회 -->
 	<select id="selectAll" resultMap="movieMap">
-		select no, title, runtime, to_char(open_date, 'yyyy-mm-dd') open_date
+		select no, title, runtime, poster_url, rating ,to_char(open_date, 'yyyy-mm-dd') open_date
 		  from t_movie
 		 where status = 'T'
 		 order by no desc
@@ -38,8 +41,8 @@
 	</select> -->
 
 	<insert id="insert" parameterType="movieVO">
-		insert into t_board(title, runtime, to_date(open_date,'yyyy-mm-dd'))
-		values(#{title}, #{runtime}, #{openDate})
+		insert into t_movie(no, title, runtime, open_date, kmdb_url, poster_url, rating)
+		values(T_MOVIE_SEQ.nextval, #{title}, #{runtime}, to_date(#{openDate},'yyyy-mm-dd'), #{kmdbUrl}, #{posterUrl}, #{rating})
 	</insert>
 
 </mapper>

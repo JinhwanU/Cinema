@@ -24,8 +24,14 @@ public class ScheduleDAO {
 		return schedule;
 	}
 
+	public List<ScheduleVO> selectByTheaterAssociation(ScheduleVO schedule) {
+		List<ScheduleVO> list = session.selectList("schedule.dao.ScheduleDAO.selectByTheaterAssociation", schedule);
+		return list;
+	}
 	public ScheduleVO selectByNo(int no) {
 		ScheduleVO schedule = session.selectOne("schedule.dao.ScheduleDAO.selectByNo", no);
 		return schedule;
 	}
+	
+	
 }

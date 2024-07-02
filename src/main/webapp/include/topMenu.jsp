@@ -11,7 +11,7 @@
 		<div class="col-md-8">
 			<!-- <div class="d-flex flex-wrap align-items-center justify-content-center"> -->
 			<ul
-				class="nav col-12 col-lg-auto mb-2 me-lg-5 justify-content-start mb-md-0">
+				class="nav col-12 col-lg-auto mb-2 justify-content-start mb-md-0">
 				<li><a href="${ pageContext.request.contextPath }/"
 					class="text-white text-decoration-none"> <img
 						src="/Cinema-WEB/resources/images/logoWhite.png" class="bi me-2"
@@ -40,6 +40,18 @@
 						<li><a class="dropdown-item fw-bolder" href="${ pageContext.request.contextPath }/mypage/log.do">예매내역 확인</a></li>
 						<li><a class="dropdown-item fw-bolder" href="#">회원정보 관리</a></li>
 					</ul></li>
+					
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle px-3 text-white fw-bolder" href="#"
+					role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						관리자 </a>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item fw-bolder"
+							href="${ pageContext.request.contextPath }/admin/statistics.do">통계</a></li>
+						<li><a class="dropdown-item fw-bolder"
+							href="${ pageContext.request.contextPath }/admin/movie.do">상영영화 관리</a></li>
+					</ul>
+				</li>
 			</ul>
 		</div>
 

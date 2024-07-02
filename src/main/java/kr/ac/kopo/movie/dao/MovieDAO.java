@@ -14,11 +14,7 @@ public class MovieDAO {
 		session = new MyBatisConfig().getInstance();
 	}
 
-	public void insertMovie() {
-		MovieVO movie = new MovieVO();
-		movie.setTitle("삽입test");
-		movie.setRuntime(100);
-		movie.setOpenDate("20221202");
+	public void insertMovie(MovieVO movie) {
 		try {
 			session.insert("movie.dao.MovieDAO.insert", movie);
 			session.commit();

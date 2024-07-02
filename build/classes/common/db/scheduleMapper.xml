@@ -54,6 +54,8 @@
 	           s.screen_time     as screen_time,
 	           m.title           as title,
 	           m.runtime         as runtime,
+	           m.rating			 as rating,
+	           m.poster_url		 as posterUrl
 	           t.no              as seat_no,
 	           t.seat_name       as seat_name,
 	           t.available       as available
@@ -61,6 +63,21 @@
 	           join t_movie m on m.no = s.movie_no
 	           left join t_seat t on s.no = t.schedule_no
 	     where s.no = #{no}
+	</select>
+
+	<select id="selectByTheaterNameAssociation" resultMap="scheduleMap" parameterType="scheduleVO">
+		select s.no              as no,
+	           s.movie_no        as movie_no,
+	           s.theater_name    as theater_name,
+	           s.screen_time     as screen_time,
+	           m.title           as title,
+	           m.runtime         as runtime,
+	           m.rating			 as rating,
+	           m.poster_url		 as posterUrl
+	      from t_schedule s
+	           join t_movie m on m.no = s.movie_no
+	     where s.theater_name = #{theaterName}
+	       and s.screen_time between to_date(#{screenTime}, 'YYYY-MM-DD') and TO_DATE(#{screenTime}, 'YYYY-MM-DD') + INTERVAL '1' DAY - INTERVAL '1' SECOND
 	</select>
 	
 	<select id="selectByNo" resultMap="scheduleMap" parameterType="int">
