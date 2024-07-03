@@ -27,7 +27,7 @@
 	                collection: 'kmdb_new2',
 	                title: searchInput,
 	                detail : 'Y',
-	                listCount: '50',
+	                listCount: '100',
 	        		ServiceKey: '6X19E69S7Y473181K8ZH'
 	            };
             const url = 'http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?' + $.param(params);
@@ -44,7 +44,7 @@
                 })
         });
 		
-		$(document).on('click', '#detailView .search-result', function() {
+		$(document).on('click', '#detailView .search-result', async function() {
             let title = $(this).find('#title').text().trim();
             let runtime = $(this).find('#runtime').text().trim();
             let openDate = $(this).find('#openDate').text().trim();
@@ -53,7 +53,7 @@
             let rating = $(this).find('#rating').text().trim();
             
             if(confirm('상영 등록하시겠습니까?')){
-                fetch('ajax/register.jsp', {
+                fetch('ajax/registerMovie.jsp', {
                     method: 'POST',
                     body: new URLSearchParams({
                     	title: title,
@@ -64,6 +64,14 @@
                     	rating: rating
                     })
                 })
+                 .then(response => {
+		            if (response.ok) {
+		                $('#movieModal').modal('hide');
+		                location.reload(true);
+		            } else {
+		                console.error('등록 실패:', response.statusText);
+		            }
+		        })
             }
         });
 		

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="theater.dao.TheaterDAO">
+
+	<resultMap type="theaterVO" id="theaterMap">
+		<result column="theater_name" property="theaterName"/>
+		<result column="total_seats" property="totalSeats"/>
+	</resultMap>
+
+	<!-- 전체 영화리스트 조회 -->
+	<select id="selectAll" resultMap="theaterMap">
+		select *
+		  from t_theater
+	</select>
+	
+</mapper>

@@ -6,21 +6,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.ac.kopo.framework.Controller;
-import kr.ac.kopo.schedule.dao.ScheduleDAO;
-import kr.ac.kopo.schedule.vo.ScheduleVO;
+import kr.ac.kopo.movie.dao.MovieDAO;
+import kr.ac.kopo.movie.vo.MovieVO;
+import kr.ac.kopo.theater.dao.TheaterDAO;
+import kr.ac.kopo.theater.vo.TheaterVO;
 
-public class ScheduleController implements Controller{
+public class ScheduleController implements Controller {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ScheduleVO schedule = new ScheduleVO();
-		schedule.setTheaterName(request.getParameter("theaterName"));
-		schedule.setScreenTime(request.getParameter("screenTime"));
+		TheaterDAO theaterDao = new TheaterDAO();
+		MovieDAO movieDao = new MovieDAO();
+
+		List<TheaterVO> theaterList = theaterDao.selectAll();
+		List<MovieVO> movieList = movieDao.selectAllMovies();
 		
-		ScheduleDAO scheduleDao = new ScheduleDAO();
-		List<ScheduleVO> scheduleList = scheduleDao.selectByTheaterAssociation(schedule);
+		request.setAttribute("theaterList", theaterList);
+		request.setAttribute("movieList", movieList);
 		
-		request.setAttribute("scheduleList", scheduleList);
 		return "/admin/schedule.jsp";
 	}
 }

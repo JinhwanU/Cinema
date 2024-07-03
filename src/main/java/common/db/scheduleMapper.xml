@@ -14,6 +14,8 @@
             <id column="movie_no" property="no" />
             <result column="title" property="title"/>
             <result column="runtime" property="runtime"/>
+            <result column="poster_url" property="posterUrl"/>
+            <result column="rating" property="rating"/>
         </association>
         <collection property="seatList" ofType="seatVO">
         	<id column="seat_no" property="no" />
@@ -55,7 +57,7 @@
 	           m.title           as title,
 	           m.runtime         as runtime,
 	           m.rating			 as rating,
-	           m.poster_url		 as posterUrl
+	           m.poster_url		 as poster_url,
 	           t.no              as seat_no,
 	           t.seat_name       as seat_name,
 	           t.available       as available
@@ -73,7 +75,7 @@
 	           m.title           as title,
 	           m.runtime         as runtime,
 	           m.rating			 as rating,
-	           m.poster_url		 as posterUrl
+	           m.poster_url		 as poster_url
 	      from t_schedule s
 	           join t_movie m on m.no = s.movie_no
 	     where s.theater_name = #{theaterName}
@@ -91,5 +93,39 @@
 	           join t_movie m on m.no = s.movie_no
 	     where s.no = #{no}
 	</select>
+
+	<select id="selectByDateAndTheater" resultMap="scheduleMap" parameterType="scheduleVO">
+		select s.no              as no,
+	           s.movie_no        as movie_no,
+	           s.theater_name    as theater_name,
+	           s.screen_time     as screen_time,
+	           m.title           as title,
+	           m.runtime         as runtime
+	      from t_schedule s
+	      	   join t_movie m on m.no = s.movie_no
+	     where s.screen_time between to_date(#{screenTime}, 'YYYY-MM-DD') and TO_DATE(#{screenTime}, 'YYYY-MM-DD') + INTERVAL '1' DAY - INTERVAL '1' SECOND
+	       and s.theater_name = #{theaterName}
+	     order by screen_time
+	</select>
+<!-- 	
+	<insert id="insertSchedule" parameterType="scheduleVO">
+		insert into t_schedule 
+		values(T_SCHEDULE_SEQ.nextval, #{movieNo}, #{theaterName}, TO_DATE(#{screenTime},'YYYY-MM-DD HH24:MI:SS'))
+		<selectKey keyProperty="no" resultType="int" order="AFTER">
+	      SELECT LAST_INSERT_ID()
+	    </selectKey>
+	</insert> -->
+	
+<!-- 	<insert id="insertSchedule" parameterType="scheduleVO" useGeneratedKeys="true" keyProperty="no">
+	    insert into t_schedule values(T_SCHEDULE_SEQ.nextval, #{movieNo}, #{theaterName}, TO_DATE(#{screenTime},'YYYY-MM-DD HH24:MI:SS'))
+	</insert> -->
+	
+	<insert id="insertSchedule" parameterType="scheduleVO">
+    <selectKey keyProperty="no" resultType="int" order="BEFORE">
+        SELECT T_SCHEDULE_SEQ.NEXTVAL AS no FROM DUAL
+    </selectKey>
+    INSERT INTO t_schedule (no, movie_no, theater_name, screen_time)
+    VALUES (#{no}, #{movieNo}, #{theaterName}, TO_DATE(#{screenTime}, 'YYYY-MM-DD HH24:MI:SS'))
+	</insert>
 	
 </mapper>

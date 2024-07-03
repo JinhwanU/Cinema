@@ -18,20 +18,36 @@ public class ScheduleDAO {
 		List<ScheduleVO> list = session.selectList("schedule.dao.ScheduleDAO.selectWhere", schedule);
 		return list;
 	}
-	
+
 	public ScheduleVO selectByNoAssociation(int no) {
 		ScheduleVO schedule = session.selectOne("schedule.dao.ScheduleDAO.selectByNoAssociation", no);
 		return schedule;
 	}
 
 	public List<ScheduleVO> selectByTheaterAssociation(ScheduleVO schedule) {
-		List<ScheduleVO> list = session.selectList("schedule.dao.ScheduleDAO.selectByTheaterAssociation", schedule);
+		List<ScheduleVO> list = session.selectList("schedule.dao.ScheduleDAO.selectByTheaterNameAssociation", schedule);
 		return list;
 	}
+
+	public List<ScheduleVO> selectByDateAndTheater(ScheduleVO schedule) {
+		List<ScheduleVO> list = session.selectList("schedule.dao.ScheduleDAO.selectByDateAndTheater", schedule);
+		return list;
+	}
+
 	public ScheduleVO selectByNo(int no) {
 		ScheduleVO schedule = session.selectOne("schedule.dao.ScheduleDAO.selectByNo", no);
 		return schedule;
 	}
-	
-	
+
+	public int insertSchedule(ScheduleVO schedule) {
+		try {
+			session.insert("schedule.dao.ScheduleDAO.insertSchedule", schedule);
+			session.commit();
+			return schedule.getNo();
+		} catch (Exception e) {
+			session.rollback();
+			throw (e);
+		}
+	}
+
 }

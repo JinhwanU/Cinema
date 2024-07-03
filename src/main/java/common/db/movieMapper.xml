@@ -13,7 +13,7 @@
 
 	<!-- 전체 영화리스트 조회 -->
 	<select id="selectAll" resultMap="movieMap">
-		select no, title, runtime, poster_url, rating ,to_char(open_date, 'yyyy-mm-dd') open_date
+		select no, title, runtime, poster_url, kmdb_url, rating ,to_char(open_date, 'yyyy-mm-dd') open_date
 		  from t_movie
 		 where status = 'T'
 		 order by no desc

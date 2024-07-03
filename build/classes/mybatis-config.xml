@@ -11,6 +11,7 @@
 		<typeAlias type="kr.ac.kopo.schedule.vo.ScheduleVO" alias="scheduleVO"/>
 		<typeAlias type="kr.ac.kopo.seat.vo.SeatVO" alias="seatVO"/>
 		<typeAlias type="kr.ac.kopo.reservation.vo.ReservationVO" alias="reservationVO"/>
+		<typeAlias type="kr.ac.kopo.theater.vo.TheaterVO" alias="theaterVO"/>
 	</typeAliases>
 
 	<environments default="development">
@@ -30,5 +31,6 @@
 		<mapper resource="common/db/scheduleMapper.xml" />
 		<mapper resource="common/db/reservationMapper.xml" />
 		<mapper resource="common/db/seatMapper.xml" />
+		<mapper resource="common/db/theaterMapper.xml" />
 	</mappers>
 </configuration>

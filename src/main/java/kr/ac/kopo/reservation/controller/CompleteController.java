@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.session.SqlSession;
+
 import kr.ac.kopo.framework.Controller;
 import kr.ac.kopo.reservation.dao.ReservationDAO;
 import kr.ac.kopo.reservation.vo.ReservationVO;

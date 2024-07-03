@@ -15,7 +15,8 @@
         <result property="staus" column="status"/>
         <association property="movie" javaType="movieVO">
             <id property="no" column="movie_no"/>
-            <result property="title" column="title"/>
+            <result column="title" property="title"/>
+            <result column="poster_url" property="posterUrl"/>
         </association>
 	</resultMap>
 
@@ -30,6 +31,7 @@
 		      ,p.img_url 	as img_url
 			  ,to_char(p.reg_date, 'yyyy-mm-dd HH24:MI:SS') reg_date
 			  ,m.title 		as title
+			  ,m.poster_url as poster_url
 		from t_post p
 		     join t_movie m
 		     	  on m.no = p.movie_no 

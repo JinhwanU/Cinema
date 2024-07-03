@@ -50,6 +50,8 @@
 							href="${ pageContext.request.contextPath }/admin/statistics.do">통계</a></li>
 						<li><a class="dropdown-item fw-bolder"
 							href="${ pageContext.request.contextPath }/admin/movie.do">상영영화 관리</a></li>
+						<li><a class="dropdown-item fw-bolder"
+							href="${ pageContext.request.contextPath }/admin/schedule.do">상영일정 관리</a></li>
 					</ul>
 				</li>
 			</ul>

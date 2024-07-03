@@ -12,4 +12,19 @@
 			   and schedule_no = #{seat.scheduleNo}
 		</foreach>
 	</update>
+	
+<!-- 	<insert id="insertSeats" parameterType="list">
+	    INSERT INTO T_SEAT (NO, THEATER_NAME, SEAT_NAME, SCHEDULE_NO) VALUES
+	    <foreach collection="list" item="seat" separator=",">
+	        (T_SEAT_SEQ.nextval, #{seat.theaterName}, #{seat.seatName}, #{seat.scheduleNo})
+	    </foreach>
+	</insert> -->
+	
+	  <insert id="insertSeats" parameterType="java.util.List">
+			<foreach collection="list" item="seat" separator=";" open="DECLARE BEGIN" close="; END;">
+			INSERT INTO T_SEAT (NO, THEATER_NAME, SEAT_NAME, SCHEDULE_NO)
+			VALUES (t_seat_seq.nextval, #{seat.theaterName}, #{seat.seatName}, #{seat.scheduleNo})
+			</foreach>
+		</insert>
+	
 </mapper>

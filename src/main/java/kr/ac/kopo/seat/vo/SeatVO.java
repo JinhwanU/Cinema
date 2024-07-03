@@ -11,6 +11,14 @@ public class SeatVO {
 	public SeatVO() {
 	}
 
+	
+	public SeatVO(String theaterName, String seatName, int scheduleNo) {
+		this.theaterName = theaterName;
+		this.seatName = seatName;
+		this.scheduleNo = scheduleNo;
+	}
+
+
 	public SeatVO(String seatName, int scheduleNo) {
 		this.seatName = seatName;
 		this.scheduleNo = scheduleNo;
