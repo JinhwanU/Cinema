@@ -142,10 +142,15 @@ main {
 				<div
 					class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative align-items-center justify-content-center">
 					<div class="col-md-4">
-						<img class="bd-placeholder-img" width="80" height="120"
-							src="${schedule.movie.posterUrl}" />
-						<strong class="d-inline-block mb-2 text-primary-emphasis">${schedule.movie.title}</strong>
-						<small>(${schedule.movie.runtime}분)</small><br><small>${schedule.movie.rating}</small>
+						<div class="row align-items-center">
+							<div class="col-4">
+							<img class="bd-placeholder-img" width="80" height="120" src="${schedule.movie.posterUrl}" />
+							</div>
+							<div class="col-8">
+								<strong class="d-inline-block mb-2 text-primary-emphasis">${schedule.movie.title}</strong>
+								<small>(${schedule.movie.runtime}분)</small><br><small>${schedule.movie.rating}</small>
+							</div>
+						</div>
 					</div>
 					<div class="col-md-2">
 						<h3 class="mb-0">${schedule.theaterName}관</h3>
@@ -170,7 +175,7 @@ main {
 	</main>
 	<footer
 		class="d-flex flex-wrap justify-content-center align-items-center py-3 border-top bg-secondary"
-		style="-bs-bg-opacity: .1;">
+		style="--bs-bg-opacity: .1;">
 		<jsp:include page="/include/footer.jsp"></jsp:include>
 	</footer>
 </body>

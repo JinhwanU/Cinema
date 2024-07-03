@@ -21,9 +21,9 @@
 		<div class="row featurette">
 			<div class="col-md-7 order-md-2">
 				<h2 class="featurette-heading fw-normal lh-1">
-					진환점 정보</span>
+					영화관 정보</span>
 				</h2>
-				<p class="lead">상영관 개수 / 좌석 개수 등<br></p>
+				<p class="lead">상영관 개수 / 좌석 개수 등<br><br><strong><h1>준비중입니다!</h1></strong></p>
 			</div>
 			<div class="col-md-5 order-md-1">
 				<img
@@ -35,7 +35,7 @@
 	</main>
 	<footer
 		class="d-flex flex-wrap justify-content-center align-items-center py-3 border-top bg-secondary"
-		style="-bs-bg-opacity: .1;">
+		style="--bs-bg-opacity: .1;">
 		<jsp:include page="/include/footer.jsp"></jsp:include>
 	</footer>
 </body>

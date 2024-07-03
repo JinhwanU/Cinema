@@ -25,20 +25,20 @@
 						<li><a class="dropdown-item fw-bolder"
 							href="${ pageContext.request.contextPath }/movie/list.do">무비차트</a></li>
 						<li><a class="dropdown-item fw-bolder"
-							href="${ pageContext.request.contextPath }/post/list.do">무비
+							href="${ pageContext.request.contextPath }/close.do">무비
 								포스트</a></li>
 					</ul></li>
 				<li><a
 					href="${ pageContext.request.contextPath }/reservation/timetable.do"
 					class="nav-link px-4 text-white fw-bolder">예매</a></li>
-				<li><a href="${ pageContext.request.contextPath }/cinema/info.do" class="nav-link px-4 text-white fw-bolder">극장</a></li>
+				<li><a href="${ pageContext.request.contextPath }/close.do" class="nav-link px-4 text-white fw-bolder">극장</a></li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle px-4 text-white fw-bolder" href="#"
 					role="button" data-bs-toggle="dropdown" aria-expanded="false">
 						마이페이지 </a>
 					<ul class="dropdown-menu">
 						<li><a class="dropdown-item fw-bolder" href="${ pageContext.request.contextPath }/mypage/log.do">예매내역 확인</a></li>
-						<li><a class="dropdown-item fw-bolder" href="#">회원정보 관리</a></li>
+						<li><a class="dropdown-item fw-bolder" href="${ pageContext.request.contextPath }/close.do">회원정보 관리</a></li>
 					</ul></li>
 					
 				<li class="nav-item dropdown"><a
@@ -58,8 +58,8 @@
 		</div>
 
 		<div class="col-md-4 text-end">
-			<button type="button" class="btn btn-outline-light me-2">Login</button>
-			<button type="button" class="btn btn-warning">Sign-up</button>
+			<button type="button" class="btn btn-outline-light me-2" onclick="location.href='${ pageContext.request.contextPath }/close.do'">Login</button>
+			<button type="button" class="btn btn-warning" onclick="location.href='${ pageContext.request.contextPath }/close.do'">Sign-up</button>
 		</div>
 	</div>
 </div>

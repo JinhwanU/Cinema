@@ -239,11 +239,17 @@
 			</div>
 		</div>
 
-
+		<h2 class="text-center mt-4">상영일정 관리</h2>
+		
 		<div class="d-flex justify-content-between align-items-center">
-			<div class="d-flex align-items-center flex-grow-2">
-				<h4 class="mb-0 px-3 flex-grow-2 fw-bolder">조회날짜</h4>
-				<input type="text" id="datePicker" class="datePicker form-control" />
+			<div class="d-flex align-items-center">
+				<div class="row">
+					<div class="row-4">
+						<p class="mb-0 px-3 flex-grow-3 fw-bolder">날짜선택</p>
+						<input type="text" id="datePicker" class="datePicker form-control" />
+					
+					</div>
+				</div>
 			</div>
 			<div class="d-flex my-4 justify-content-end">
 				<div>

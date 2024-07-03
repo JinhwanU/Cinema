@@ -15,6 +15,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 	$(document).ready(function(){
+		
 		$('#movieBtn').click(function(e) {
             e.preventDefault(); // 기본 동작(폼 제출) 방지
             $('#movieModal').modal('show');
@@ -52,27 +53,29 @@
             let posterUrl = $(this).find('#posterUrl').attr('src');
             let rating = $(this).find('#rating').text().trim();
             
-            if(confirm('상영 등록하시겠습니까?')){
+            const result = $('#registerModal').modal('show');
+            
+            $('#confirmRegisterBtn').off('click').on('click', function() {
                 fetch('ajax/registerMovie.jsp', {
                     method: 'POST',
                     body: new URLSearchParams({
-                    	title: title,
-                    	runtime: runtime,
-                    	openDate: openDate,
-                    	kmdbUrl: kmdbUrl,
-                    	posterUrl: posterUrl,
-                    	rating: rating
+                        title: title,
+                        runtime: runtime,
+                        openDate: openDate,
+                        kmdbUrl: kmdbUrl,
+                        posterUrl: posterUrl,
+                        rating: rating
                     })
                 })
-                 .then(response => {
-		            if (response.ok) {
-		                $('#movieModal').modal('hide');
-		                location.reload(true);
-		            } else {
-		                console.error('등록 실패:', response.statusText);
-		            }
-		        })
-            }
+                .then(response => {
+                    if (response.ok) {
+                        $('#registerModal').modal('hide');
+                        location.reload(true);
+                    } else {
+                        console.error('등록 실패:', response.statusText);
+                    }
+                });
+            });
         });
 		
 		
@@ -148,6 +151,25 @@
 	    </div>
 	
 	
+		<div id="registerModal" class="modal fade" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+	        <div class="modal-dialog modal-dialog-centered">
+	            <div class="modal-content bg-secondary bg-gradient">
+	                <div class="modal-header">
+	                    <h5 class="modal-title" id="registerModalLabel">상영 등록 확인</h5>
+	                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	                </div>
+	                <div class="modal-body">
+	                    <p>선택하신 영화를 상영 등록합니다</p>
+	                </div>
+	                <div class="modal-footer">
+	                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+	                    <button id="confirmRegisterBtn" type="button" class="btn btn-primary">확인</button>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+		
+	
 	
 		<div class="py-5 text-center">
 			<h2 class="fw-bold">현재 상영중인 영화</h2>
@@ -177,7 +199,7 @@
 	</main>
 	<footer
 		class="d-flex flex-wrap justify-content-center align-items-center py-3 my-4 border-top bg-secondary"
-		style="-bs-bg-opacity: .1;">
+		style="--bs-bg-opacity: .1;">
 		<jsp:include page="/include/footer.jsp"></jsp:include>
 	</footer>
 </body>

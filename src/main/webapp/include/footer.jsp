@@ -6,7 +6,7 @@
 		<span class="mb-3 mb-md-0 text-muted">&copy; 2024 AISW Hightech</span>
 	</div>
 	<ul class="nav col-md-6 justify-content-end list-unstyled d-flex">
-		<li class="nav-item ms-3"><a class="text-muted" href="#"><svg
+		<li class="nav-item ms-3"><a class="text-muted" href="https://github.com/JinhwanU" target="_blank"><svg
 					class="bi" width="24" height="24">
 						<use xlink:href="#github" /></svg></a></li>
 		<li class="nav-item ms-3"><a class="text-muted" href="#"><svg

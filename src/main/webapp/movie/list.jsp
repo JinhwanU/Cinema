@@ -12,6 +12,11 @@
 <link href="../resources/css/my.css" rel="stylesheet" />
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+a {
+	text-decoration: none;
+}
+</style>
 </head>
 <body class="bg-light">
 	<header class="p-3 text-bg-dark">
@@ -23,23 +28,21 @@
 
 				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 					<c:forEach var="movie" items="${ movieList }">
-						<div class="col col-sm-6 col-md-4">
+						<div class="col-3 p-4">
 							<div class="card shadow-sm">
 								<img class="bd-placeholder-img card-img-top" width="100%"
-									height="260" src="${movie.posterUrl }">
+									height="300" src="${movie.posterUrl }">
 							<title>Placeholder</title><rect width="100%" height="100%"
 										fill="#55595c" />
 								<div class="card-body">
 									<p class="card-text"><a href="${movie.kmdbUrl}" target="_blank">${ movie.title }</a>
-										<br>${ movie.runtime }</p>
+										<br><small>상영시간 : ${ movie.runtime }분</small></p>
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="btn-group">
-											<button type="button"
-												class="btn btn-sm btn-outline-secondary">View</button>
-											<button type="button"
-												class="btn btn-sm btn-outline-secondary">Edit</button>
+											<button type="button" onclick="location.href='${ pageContext.request.contextPath }/reservation/timetable.do'"
+												class="btn btn-sm btn-outline-danger">예매하기</button>
 										</div>
-										<small class="text-muted">${ movie.openDate }</small>
+										<small class="text-muted">${ movie.openDate } 개봉</small>
 									</div>
 								</div>
 							</div>

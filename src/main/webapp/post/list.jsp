@@ -13,6 +13,8 @@
 <link href="../resources/css/my.css" rel="stylesheet" />
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+</style>
 </head>
 <body class="bg-light">
 	<header class="p-3 text-bg-dark">
@@ -42,7 +44,7 @@
 	</main>
 	<footer
 		class="d-flex flex-wrap justify-content-center align-items-center py-3 my-4 border-top bg-secondary"
-		style="-bs-bg-opacity: .1;">
+		style="--bs-bg-opacity: .1;">
 		<jsp:include page="../include/footer.jsp"></jsp:include>
 	</footer>
 </body>

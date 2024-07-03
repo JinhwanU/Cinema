@@ -156,8 +156,12 @@
 					role="tabpanel" aria-labelledby="nav-daily-tab">
 					<h2 class="fw-bolder">일별 박스오피스</h2>
 					<div class="container my-4">
-						<label for="datePicker" class="form-label">조회할 날짜 선택</label> <input
-							type="text" id="datePickerDaily" class="datePicker form-control" />
+						<div class="row">
+							<div class="col-3">
+								<label for="datePicker" class="form-label">날짜 선택</label>
+								<input type="text" id="datePickerDaily" class="datePicker form-control text-center" />
+							</div>
+						</div>
 					</div>
 					<div class="table-responsive">
 						<table class="table table-striped">
@@ -181,8 +185,12 @@
 					aria-labelledby="nav-week-tab">
 					<h2 class="fw-bolder">주간 박스오피스</h2><small>* 해당 날짜가 속한 주(월~일) 기준으로 조회</small>
 					<div class="container my-4">
-						<label for="datePicker" class="form-label">조회할 날짜 선택</label> <input
-							type="text" id="datePickerWeekly" class="datePicker form-control" />
+					<div class="row">
+						<div class="col-3">
+						<label for="datePicker" class="form-label">날짜 선택</label> <input
+							type="text" id="datePickerWeekly" class="datePicker form-control text-center" />
+						</div>
+					</div>
 					</div>
 					<div class="table-responsive">
 						<table class="table table-striped">
@@ -206,13 +214,17 @@
 					aria-labelledby="nav-weekend-tab">
 					<h2 class="fw-bolder">주간 박스오피스(주말)</h2><small>* 해당 날짜가 속한 주(월~일) 기준으로 조회</small>
 					<div class="container my-4">
-						<label for="datePicker" class="form-label">조회할 날짜 선택</label> <input
+					<div class="row">
+						<div class="col-3">
+						<label for="datePicker" class="form-label">날짜 선택</label> <input
 							type="text" id="datePickerWeekend" class="datePicker form-control" />
+						</div>
+					</div>
 					</div>
 					<div class="table-responsive">
 						<table class="table table-striped">
 							<thead class="text-center">
-								<tr>
+								<tr class="p-3">
 									<th scope="col">주간순위</th>
 									<th scope="col">영화명</th>
 									<th scope="col">주간매출액</th>
@@ -232,7 +244,7 @@
 	</main>
 	<footer
 		class="d-flex flex-wrap justify-content-center align-items-center py-3 my-4 border-top bg-secondary"
-		style="-bs-bg-opacity: .1;">
+		style="--bs-bg-opacity: .1;">
 		<jsp:include page="/include/footer.jsp"></jsp:include>
 	</footer>
 </body>

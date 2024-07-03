@@ -118,7 +118,7 @@ $(document).ready(function() {
 				<h1>예매하기</h1>
 			</div>
 			<div class="row border">
-				<div class="col-4 px-0 border-end">
+				<div class="col-5 px-0 border-end">
 					<div
 						class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
 						<a
@@ -133,8 +133,8 @@ $(document).ready(function() {
 									class="list-group-item list-group-item-action py-3 lh-tight"
 									data-bs-toggle="list" data-movie-no="${movie.no}">
 									<div class="row">
-										<strong class="col-md-2 mb-1 pe-1">${movie.rating}</strong> <strong
-											class="col-md-10">${ movie.title }<br></strong>
+										<small class="col-md-4 mb-1 pe-1">${movie.rating}</small> 
+										<strong class="col-md-8">${ movie.title }<br></strong>
 									</div>
 								</a>
 							</c:forEach>
@@ -167,7 +167,7 @@ $(document).ready(function() {
 					</div>
 				</div>
 
-				<div class="col-6 px-0">
+				<div class="col-5 px-0">
 					<div
 						class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
 						<a
@@ -187,7 +187,7 @@ $(document).ready(function() {
 	</main>
 	<footer
 		class="d-flex flex-wrap justify-content-center align-items-center py-3 border-top bg-secondary"
-		style="-bs-bg-opacity: .1;">
+		style="--bs-bg-opacity: .1;">
 		<jsp:include page="/include/footer.jsp"></jsp:include>
 	</footer>
 </body>

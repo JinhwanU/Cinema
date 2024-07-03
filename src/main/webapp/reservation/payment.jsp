@@ -152,7 +152,7 @@
 	</main>
 	<footer
 		class="d-flex flex-wrap justify-content-center align-items-center py-3 border-top bg-secondary"
-		style="-bs-bg-opacity: .1;">
+		style="--bs-bg-opacity: .1;">
 		<jsp:include page="/include/footer.jsp"></jsp:include>
 	</footer>
 </body>
