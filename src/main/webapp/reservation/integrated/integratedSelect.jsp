@@ -58,32 +58,33 @@ main {
 		});
 		
 		
-		 function updateSelectedSeatsList(seatName, isSelected) {
-	            let currentSeatNames = $('#seatName').text().trim();
-	            let updatedSeatNames = currentSeatNames.split(' ');
+	 	function updateSelectedSeatsList(seatName, isSelected) {
+            
+            let selectedSeats = $('.seat.selected').map(function() {
+                return $(this).data('seat-no');
+            }).get().join(' ');
+            
+            let selectedSeatNames = $('.seat.selected').map(function() {
+                return $(this).text().trim();
+            }).get().join(' ');
 
-	            if (isSelected) {
-	                updatedSeatNames.push(seatName);
-	            } else {
-	                updatedSeatNames = updatedSeatNames.filter(name => name !== seatName);
-	            }
+            $('#seatName').text(selectedSeatNames);
+            $('input[name="seat"]').val(selectedSeatNames);
+            $('input[name="seatNo"]').val(selectedSeats);
+        }
 
-	            $('#seatName').text(updatedSeatNames.join(' '));
-	            $('input[name="seat"]').val(updatedSeatNames.join(' '));
-	        }
+        function updatePriceAndButtonState() {
+            selectedCount = $('.seat.selected').length; // 선택된 좌석 수 업데이트
 
-	        function updatePriceAndButtonState() {
-	            selectedCount = $('.seat.selected').length; // 선택된 좌석 수 업데이트
+            $('#price').text(price + '원'); // 가격 업데이트
 
-	            $('#price').text(price + '원'); // 가격 업데이트
-
-	            // 선택된 좌석 수와 인원 수가 일치할 때 결제 버튼 활성화
-	            if (selectedCount === count) {
-	                $("#paymentBtn").prop("disabled", false);
-	            } else {
-	                $("#paymentBtn").prop("disabled", true);
-	            }
-	        }
+            // 선택된 좌석 수와 인원 수가 일치할 때 결제 버튼 활성화
+            if (selectedCount === count) {
+                $("#paymentBtn").prop("disabled", false);
+            } else {
+                $("#paymentBtn").prop("disabled", true);
+            }
+        }
 	});
 </script>
 
@@ -163,10 +164,11 @@ main {
 						<h3 id="price" class="mb-0">15000원</h3>
 					</div>
 					<div class="col-md-2 d-none d-lg-block">
-						<form action="payment.do" method="post">
-							<input id="paymentBtn" type="submit" class="btn btn-danger btn-lg px-4 py-4"
-								value="결제하기" disabled=true> <input type="hidden" name="no"
-								value="${schedule.no}"> <input type="hidden" name="seat">
+						<form action="integratedPayment.do?db=${param.db}" method="post">
+							<input type="hidden" name="no" value="${schedule.no}"> 
+							<input type="hidden" name="seat">
+							<input type="hidden" name="seatNo">
+							<input id="paymentBtn" type="submit" class="btn btn-danger btn-lg px-4 py-4" value="결제하기" disabled=true> 
 						</form>
 					</div>
 				</div>

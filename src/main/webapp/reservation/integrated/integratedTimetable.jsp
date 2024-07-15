@@ -17,7 +17,7 @@
 /* Custom styles for vertical scrollable list group */
 main {
 	height: 800px; /* Set maximum height for scrollbar */
-	max-width: 1400px;
+	max-width : 1500px;
 }
 
 .list-group {
@@ -28,20 +28,51 @@ main {
 $(document).ready(function() {
     let movieNo = $('#movieList').find('.active').data('movie-no');
     let date = $('#dateList').find('.active').data('date');
+    let cinemaNo = $('#cinemaList').find('.active').data('cinema-no');
+    fetchMovie(cinemaNo);
+    fetchSchedule(cinemaNo, movieNo, date);
     
-    fetchSchedule(movieNo, date);
-
-    function fetchSchedule(movieNo, date) {
-        fetch('ajax/schedule.jsp', {
-            method: 'POST',
-            body: new URLSearchParams({
+    function fetchMovie(cinemaNo) {
+    	let params={
+				db : cinemaNo
+		}
+		params = new URLSearchParams(params)
+		
+		let url = 'http://172.31.7.184:8081/Cinema-API/movieList.do'
+					+ '?' + params
+		fetch(url)
+		.then((response)=>response.json())
+		.then(data => appendMovie(data))
+		.catch(error => console.error('Error :', error));
+    }
+    
+    function fetchSchedule(cinemaNo, movieNo, date) {
+    	let params={
+    			db : cinemaNo,
                 movieNo: movieNo,
                 date: date
-            })
+		}
+    	params = new URLSearchParams(params)
+        fetch('http://172.31.7.184:8081/Cinema-API/scheduleList.do', {
+            method: 'POST',
+            body: params
         })
         .then(response => response.json())
         .then(data => appendSchedule(data))
         .catch(error => console.error('Error :', error));
+    }
+    
+    function appendMovie(data) {
+        $("#movieList").empty();
+
+        data.forEach(movie => {
+        	let html = '<a href="#" name=movie class="list-group-item list-group-item-action py-3 lh-tight" data-bs-toggle="list" data-movie-no="'+movie.no+'">';
+				html += '<div class="row">';
+				html += '<small class="col-md-4 mb-1 ps-1 pe-0">'+ movie.rating +'</small>';
+				html += '<strong class="col-md-8">'+ movie.title +'<br></strong></div></a>';
+            
+            $('#movieList').append(html);
+        });
     }
 
     function appendSchedule(data) {
@@ -60,7 +91,7 @@ $(document).ready(function() {
             html += '" data-bs-toggle="list" data-no="' + schedule.no + '">';
             
             html += '<div class="row">';
-            html += '<strong class="col-md-2 mb-1">' + formatTime(time) + '<br>';
+            html += '<strong class="col-md-2 mb-1 me-2">' + formatTime(time) + '<br>';
             time.setMinutes(time.getMinutes() + schedule.movie.runtime);
             html += '<small>~' + formatTime(time) + '</small></strong>';
             html += '<strong class="col-md-6 mx-1 px-2">' + schedule.movie.title + '<br></strong>';
@@ -77,18 +108,29 @@ $(document).ready(function() {
         $("#selectSeatBtn").prop("disabled", $('a[name="schedule"].active').length === 0);
     }
 
+    $('main').on('click', 'a[name="cinema"]', function() {
+        let selectedCinema = $(this).data('cinema-no');
+        let selectedMovieNo = $('#movieList').find('.active').data('movie-no');
+        let selectedDate = $('#dateList').find('.active').data('date');
+
+        fetchMovie(selectedCinema);
+        fetchSchedule(selectedCinema, selectedMovieNo, selectedDate);
+    });
+    
     $('main').on('click', 'a[name="movie"]', function() {
+    	let selectedCinema = $('#cinemaList').find('.active').data('cinema-no');
         let selectedMovieNo = $(this).data('movie-no');
         let selectedDate = $('#dateList').find('.active').data('date');
 
-        fetchSchedule(selectedMovieNo, selectedDate);
+        fetchSchedule(selectedCinema, selectedMovieNo, selectedDate);
     });
 
     $('main').on('click', 'a[name="date"]', function() {
-        let selectedDate = $(this).data('date');
+    	let selectedCinema = $('#cinemaList').find('.active').data('cinema-no');
         let selectedMovieNo = $('#movieList').find('.active').data('movie-no');
+        let selectedDate = $(this).data('date');
 
-        fetchSchedule(selectedMovieNo, selectedDate);
+        fetchSchedule(selectedCinema, selectedMovieNo, selectedDate);
     });
 
     $('main').on('click', 'a[name="schedule"]', function() {
@@ -103,25 +145,59 @@ $(document).ready(function() {
     
 	$('#selectSeatBtn').on('click', function() {
 		let no= $('#scheduleList').find('.active').data('no');
-		location.href="select.do?no="+no
+		let cinemaNo = $('#cinemaList').find('.active').data('cinema-no');
+		location.href="integratedSelect.do?db="+cinemaNo+"&no="+no
 	})
 });
 
 </script>
 </head>
-<body class="bg-light">
+<body class="bg-warning-subtle">
 	<header class="p-3 text-bg-dark">
 		<jsp:include page="/include/topMenu.jsp"></jsp:include>
 	</header>
 	<main class="py-3">
-		<div class="row">
+	<div class="row">
 		<div class="col-2"></div>
 		<div class="col-8">
 			<div class="row fw-bolder my-3">
-				<h1>예매하기</h1>
+				<h1>통합예매</h1>
 			</div>
 			<div class="row border">
-				<div class="col-5 px-0 border-end">
+				<div class="col-2 px-0 border-end">
+					<div
+						class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
+						<a
+							class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom justify-content-center">
+							<span class="fs-5 fw-semibold text-center">극장</span>
+						</a>
+						<div id="cinemaList"
+							class="list-group list-group-flush border-bottom scrollarea overflow-auto"
+							data-bs-toggle="list" >
+								<a href="#" name=cinema class="list-group-item list-group-item-action py-3 lh-tight active"
+									data-bs-toggle="list" data-cinema-no="1">
+									<div class="row text-center">
+									<strong class="col">최신영화 극장<br></strong>
+									</div>
+								</a>
+								<a href="#" name=cinema class="list-group-item list-group-item-action py-3 lh-tight"
+									data-bs-toggle="list" data-cinema-no="2">
+									<div class="row text-center">
+									<strong class="col">고전영화 극장<br></strong>
+									</div>
+								</a>
+								<a href="#" name=cinema class="list-group-item list-group-item-action py-3 lh-tight"
+									data-bs-toggle="list" data-cinema-no="3">
+									<div class="row text-center">
+									<strong class="col">독립영화 극장<br></strong>
+									</div>
+								</a>
+						</div>
+					</div>
+				</div>
+				
+				
+				<div class="col-4 px-0 border-end">
 					<div
 						class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
 						<a
@@ -131,16 +207,6 @@ $(document).ready(function() {
 						<div id="movieList"
 							class="list-group list-group-flush border-bottom scrollarea overflow-auto"
 							data-bs-toggle="list">
-							<c:forEach var="movie" items="${movieList}">
-								<a href="#" name=movie
-									class="list-group-item list-group-item-action py-3 lh-tight"
-									data-bs-toggle="list" data-movie-no="${movie.no}">
-									<div class="row">
-										<small class="col-md-4 mb-1 pe-1">${movie.rating}</small> 
-										<strong class="col-md-8">${ movie.title }<br></strong>
-									</div>
-								</a>
-							</c:forEach>
 						</div>
 					</div>
 				</div>
@@ -170,7 +236,7 @@ $(document).ready(function() {
 					</div>
 				</div>
 
-				<div class="col-5 px-0">
+				<div class="col-4 px-0">
 					<div
 						class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
 						<a
@@ -187,67 +253,19 @@ $(document).ready(function() {
 				<button id="selectSeatBtn" class="btn btn-danger" disabled=true>좌석선택</button>
 			</div>
 		</div>
-		<div class="col-2">
-		<a href="${ pageContext.request.contextPath }/reservation/integratedTimetable.do" style="text-decoration: none;">
-		<div class="card" style="width: 18rem;">
-		
-		
-			<div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    </div>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img class="bd-placeholder-img" width="100%" height="400px" src="http://file.koreafilm.or.kr/thm/02/00/03/47/tn_DPF03506A.jpg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-        <div class="container">
-          <div class="carousel-caption text-start">
-          </div>
-        </div>
+      	<div class="col-2">
+      	
+      	</div>
       </div>
-      <div class="carousel-item">
-        <img class="bd-placeholder-img" width="100%" height="400px" src="http://file.koreafilm.or.kr/thm/02/99/18/45/tn_DPK022133.jpg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-        <div class="container">
-          <div class="carousel-caption">
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img class="bd-placeholder-img" width="100%" height="400px" src="http://file.koreafilm.or.kr/thm/02/99/17/92/tn_DPK020117.jpg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-        <div class="container">
-          <div class="carousel-caption text-end">
-          </div>
-        </div>
-      </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
 		
 		
-		
-		
-			  <!-- <img src="http://file.koreafilm.or.kr/thm/02/00/03/47/tn_DPF03506A.jpg" class="card-img-top" alt="..."> -->
-			  <div class="card-body">
-			    <h5 class="card-title"> </h5>
-			    <p class="card-text"><a class="text-danger" style="text-decoration: none">통합예매 서비스</a>에서<br>다양한 영화들을 찾아보세요</p>
-			  </div>
-			</div>
-		</a>
-		</div>
-		</div>
 	</main>
 	<footer
 		class="d-flex flex-wrap justify-content-center align-items-center py-3 border-top bg-secondary"
 		style="--bs-bg-opacity: .1;">
 		<jsp:include page="/include/footer.jsp"></jsp:include>
 	</footer>
+
+	
 </body>
 </html>

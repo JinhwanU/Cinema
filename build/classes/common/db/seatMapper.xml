@@ -26,5 +26,4 @@
 			VALUES (t_seat_seq.nextval, #{seat.theaterName}, #{seat.seatName}, #{seat.scheduleNo})
 			</foreach>
 		</insert>
-	
 </mapper>

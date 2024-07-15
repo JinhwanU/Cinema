@@ -18,8 +18,6 @@ public class PaymentController implements Controller {
 		ScheduleVO schedule = scheduleDAO.selectByNo(no);
 
 		int count = seatList.length;
-		for(String s : seatList)
-			System.out.println(s);
 
 		request.setAttribute("schedule", schedule);
 		request.setAttribute("seatList", seatList);

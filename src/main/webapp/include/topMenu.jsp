@@ -8,11 +8,11 @@
 </script> -->
 <div class="container" style="max-width: 900px;">
 	<div class="row">
-		<div class="col-md-8">
+		<div class="col-md-9">
 			<!-- <div class="d-flex flex-wrap align-items-center justify-content-center"> -->
 			<ul
 				class="nav col-12 col-lg-auto mb-2 justify-content-start mb-md-0">
-				<li><a href="${ pageContext.request.contextPath }/"
+				<li><a href="${ pageContext.request.contextPath }/index.do"
 					class="text-white text-decoration-none"> <img
 						src="/Cinema-WEB/resources/images/logoWhite.png" class="bi me-2"
 						width="60" height="32" alt="Bootstrap">
@@ -28,9 +28,14 @@
 							href="${ pageContext.request.contextPath }/close.do">무비
 								포스트</a></li>
 					</ul></li>
-				<li><a
-					href="${ pageContext.request.contextPath }/reservation/timetable.do"
-					class="nav-link px-4 text-white fw-bolder">예매</a></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle px-4 text-white fw-bolder" href="#"
+					role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					예매 </a>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item fw-bolder" href="${ pageContext.request.contextPath }/reservation/timetable.do">예매하기</a></li>
+						<li><a class="dropdown-item fw-bolder" href="${ pageContext.request.contextPath }/reservation/integratedTimetable.do">통합예매</a></li>
+					</ul></li>
 				<li><a href="${ pageContext.request.contextPath }/close.do" class="nav-link px-4 text-white fw-bolder">극장</a></li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle px-4 text-white fw-bolder" href="#"
@@ -57,7 +62,7 @@
 			</ul>
 		</div>
 
-		<div class="col-md-4 text-end">
+		<div class="col-md-3 text-end">
 			<button type="button" class="btn btn-outline-light me-2" onclick="location.href='${ pageContext.request.contextPath }/close.do'">Login</button>
 			<button type="button" class="btn btn-warning" onclick="location.href='${ pageContext.request.contextPath }/close.do'">Sign-up</button>
 		</div>

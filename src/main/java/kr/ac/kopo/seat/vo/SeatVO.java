@@ -18,11 +18,13 @@ public class SeatVO {
 		this.scheduleNo = scheduleNo;
 	}
 
-
-	public SeatVO(String seatName, int scheduleNo) {
+	public SeatVO(int no, String seatName, int scheduleNo) {
+		super();
+		this.no = no;
 		this.seatName = seatName;
 		this.scheduleNo = scheduleNo;
 	}
+
 
 	public final int getNo() {
 		return no;

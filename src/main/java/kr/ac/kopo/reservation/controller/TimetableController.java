@@ -36,7 +36,7 @@ public class TimetableController implements Controller {
 		for (int i = 0; i < 14; i++) {
 			LocalDate date = currentDate.plusDays(i);
 			DayOfWeek dayOfWeek = date.getDayOfWeek();
-			String dayName = dayNames[dayOfWeek.getValue() % 7]; // Java의 DayOfWeek 값은 월요일이 1, 일요일이 7입니다.
+			String dayName = dayNames[(dayOfWeek.getValue()-1) % 7]; // Java의 DayOfWeek 값은 월요일이 1, 일요일이 7입니다.
 			
 			DateVO dateVO = new DateVO();
 			dateVO.setDate(date.format(formatter));

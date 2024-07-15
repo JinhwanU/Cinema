@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>예매완료</title>
+<title>예매실패</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
@@ -18,8 +19,8 @@
 		<jsp:include page="/include/topMenu.jsp"></jsp:include>
 	</header>
 	<main>
-		<h1 class="my-5 fw-bolder">예매가 완료되었습니다</h1>
-		<button class="btn btn-primary btn-lg" onclick="location.href='${ pageContext.request.contextPath }/mypage/log.do'">예매내역 확인</button>
+		<h1 class="my-5 fw-bolder text-danger">예매를 실패하였습니다</h1>
+		<button class="btn btn-primary btn-lg" onclick="location.href='${ pageContext.request.contextPath }/index.do'">홈으로</button>
 	</main>
 	<footer
 		class="d-flex flex-wrap justify-content-center align-items-center py-3 my-4 border-top bg-secondary"

@@ -17,8 +17,6 @@ public class ScheduleController implements Controller {
 		schedule.setMovieNo(Integer.parseInt(request.getParameter("movieNo")));
 		schedule.setScreenTime(request.getParameter("date"));
 		
-		System.out.println(schedule.toString());
-
 		ScheduleDAO scheduleDao = new ScheduleDAO();
 		List<ScheduleVO> scheduleList = scheduleDao.selectWhere(schedule);
 		request.setAttribute("scheduleList", scheduleList);
