@@ -3,9 +3,9 @@
 JSP/Servlet 기반 웹 프로젝트로<br>
 일반 사용자를 위한 영화 예매 서비스와<br>
 관리자를 위한 영화 등록 및 상영 관리 기능을 구현하였습니다.<br>
-추가적으로, 같은 주제로 프로젝트를 진행한 분들과 [통합 API서버](https://github.com/JinhwanU/Cinema-API.git)를 구현하여 데이터를 공유했습니다.
-
+추가적으로, 같은 주제로 프로젝트를 진행한 분들과 [통합 API서버](https://github.com/JinhwanU/Cinema-API.git)를 구현하여 데이터를 공유했습니다.<br>
 *******************
+<br>
 
 ### 1. 프로젝트 기간
 
@@ -29,7 +29,6 @@ JSP/Servlet 기반 웹 프로젝트로<br>
 <br><br><br>
 </div>
 </details>
-<br>
 
 
 
@@ -49,7 +48,6 @@ JSP/Servlet 기반 웹 프로젝트로<br>
 <br><br><br>
 </div>
 </details>
-<br>
 
 
 
@@ -81,31 +79,41 @@ JSP/Servlet 기반 웹 프로젝트로<br>
 ![전체테이블(간략)](https://github.com/user-attachments/assets/8da44ec6-2ad5-4afa-8731-cb92c4b10842)
 <br><br>
 
-### 6. 문제 해결 과정
+### 6. 문제 해결
 
 <details>
-<summary><b>문제상황1</b></summary>
+<summary><b>비동기처리</b></summary>
 <div markdown="1">       
 
 <b><h3>문제 상황</h3></b>
-<b><h3>해결 방안</h3></b>
-<b><h3>의견 결정</h3></b>
-   
-<br><br><hr>
+비동기처리를 위해 Fetch API를 통해 입력 데이터를 전송하였으나 return 값이 비정상적인 상황<br>
+<b><h3>문제 원인</h3></b>
+HTTP 통신을 통해 데이터를 주고 받을 때는 데이터를 JSON 객체로 변경하여야한다.<br>
+(단순 문자열, XML, YAML, HTML Form data 등과 같이 예외인 경우도 있다.)<br>
+<b><h3>해결 방법</h3></b>
+GSON 라이브러리를 사용하여 데이터를 JSON 객체로 변경해주었다.
+<br><hr>
 </div>
 </details>
 
 
 <details>
-<summary><b>문제상황2</b></summary>
+<summary><b>SQL Insert문 일괄 처리</b></summary>
 <div markdown="1">       
-
 <b><h3>문제 상황</h3></b>
-<b><h3>해결 방안</h3></b>
-<b><h3>의견 결정</h3></b>
+'영화 상영일정 하나를 만들 때 좌석 100개가 함께 생성되어야한다'는 로직을 처리해야 하는 상황<br>
+쿼리를 100번 따로 실행하면 프로그램 성능에 문제가 있을 것이라 생각하여 일괄 처리하는 방법을 모색하였다.<br>
+<b><h3>해결 방법</h3></b>
+Oracle DB를 사용하기 때문에 PL/SQL 블록으로 묶어 Insert문 100개를 한번에 서버로 전송하였다.<br>
+반복처리는 myBatis의 foreach문을 활용하였다.<br>
+<b><h3>느낀점</h3></b>
+처음에 PL/SQL로 묶어 서버에 한번에 보냈을 때는 이 방법이 Batch처리인 줄 알았다.<br>
+하지만 이 방식은 Batch처리가 아니며 Insert문의 개수만큼 트랜잭션이 생성된다는 사실을 알게되었다.<br>
+(Batch 처리는 모든 Insert문을 한번에 처리하기 때문에 트랜잭션이 단 한개만 생성된다)<br>
+차이점을 알게 됐으니 다음 프로젝트에서는 꼭 Batch처리를 해보도록 하겠다<br>
    
-<br><br><hr>
+<br><hr>
 </div>
 </details>
 
-
+<br><br>
